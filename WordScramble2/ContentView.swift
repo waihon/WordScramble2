@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ListView: View {
+    let people = ["Finn", "Leia", "Luke", "Rey"]
+
     var body: some View {
         List {
             Section("Section 1") {
@@ -29,6 +31,10 @@ struct ListView: View {
 
         List(0..<3) {
             Text("Dynamic row \($0)")
+        }
+
+        List(people, id: \.self) {
+            Text($0)
         }
     }
 }
