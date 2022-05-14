@@ -11,30 +11,48 @@ struct ListView: View {
     let people = ["Finn", "Leia", "Luke", "Rey"]
 
     var body: some View {
-        List {
-            Section("Section 1") {
-                Text("Static row 1")
-                Text("Static row 2")
+        Form {
+            List {
+                Section("Section 1") {
+                    Text("Static row 1")
+                    Text("Static row 2")
+                }
+
+                Section("Section 2") {
+                    ForEach(0..<3) {
+                        Text("Dynamic row \($0)")
+                    }
+                }
+
+                Section("Section 3") {
+                    Text("Static row 3")
+                    Text("Static row 4")
+                }
             }
 
-            Section("Section 2") {
-                ForEach(0..<3) {
+            Section("Section 4") {
+                List(0..<3) {
                     Text("Dynamic row \($0)")
                 }
             }
 
-            Section("Section 3") {
-                Text("Static row 3")
-                Text("Static row 4")
+            Section("Section 5") {
+                List(people, id: \.self) {
+                    Text($0)
+                }
             }
-        }
 
-        List(0..<3) {
-            Text("Dynamic row \($0)")
-        }
+            Section("Section 6") {
+                List {
+                    Text("Static row 1")
 
-        List(people, id: \.self) {
-            Text($0)
+                    ForEach(people, id: \.self) {
+                        Text($0)
+                    }
+
+                    Text("Static row 2")
+                }
+            }
         }
     }
 }
