@@ -8,22 +8,62 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        List {
-            Section("Section 1") {
-                Text("Static row 1")
-                Text("Static row 2")
-            }
+    static let listStyleTexts = ["Automatic", "Grouped", "Inset", "Inset Grouped", "Plain", "Sidebar"]
+    @State private var listStyleText = listStyleTexts[0]
 
-            Section("Section 2") {
-                ForEach(0..<5) {
-                    Text("Dynamic row \($0)")
+    struct ListView: View {
+        var body: some View {
+            List {
+                Section("Section 1") {
+                    Text("Static row 1")
+                    Text("Static row 2")
+                }
+
+                Section("Section 2") {
+                    ForEach(0..<5) {
+                        Text("Dynamic row \($0)")
+                    }
+                }
+
+                Section("Section 3") {
+                    Text("Static row 3")
+                    Text("Static row 4")
                 }
             }
+        }
+    }
 
-            Section("Section 3") {
-                Text("Static row 3")
-                Text("Static row 4")
+    var body: some View {
+        VStack {
+            VStack {
+                Text("List style:")
+                Picker("List style", selection: $listStyleText) {
+                    ForEach(Self.listStyleTexts, id: \.self) {
+                        Text("\($0)")
+                    }
+                }
+                .pickerStyle(.segmented)
+            }
+
+            switch listStyleText {
+            case "Grouped":
+                ListView()
+                    .listStyle(.grouped)
+            case "Inset":
+                ListView()
+                    .listStyle(.inset)
+            case "Inset Grouped":
+                ListView()
+                    .listStyle(.insetGrouped)
+            case "Plain":
+                ListView()
+                    .listStyle(.plain)
+            case "Sidebar":
+                ListView()
+                    .listStyle(.sidebar)
+            default:
+                ListView()
+                    .listStyle(.automatic)
             }
         }
     }
