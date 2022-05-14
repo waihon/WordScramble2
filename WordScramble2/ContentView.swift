@@ -16,7 +16,7 @@ struct ListView: View {
             }
 
             Section("Section 2") {
-                ForEach(0..<5) {
+                ForEach(0..<3) {
                     Text("Dynamic row \($0)")
                 }
             }
@@ -25,6 +25,10 @@ struct ListView: View {
                 Text("Static row 3")
                 Text("Static row 4")
             }
+        }
+
+        List(0..<3) {
+            Text("Dynamic row \($0)")
         }
     }
 }
