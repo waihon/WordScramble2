@@ -10,6 +10,16 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         List {
+            ForEach(0..<5) {
+                Text("Dynamic row \($0)")
+            }
+        }
+    }
+}
+
+struct List01ContentView: View {
+    var body: some View {
+        List {
             Text("Hello, world!")
             Text("Hello, world!")
             Text("Hello, world!")
