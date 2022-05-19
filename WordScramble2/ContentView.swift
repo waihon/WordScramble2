@@ -7,6 +7,71 @@
 
 import SwiftUI
 
+struct ContentView: View {
+    @State private var string = ""
+    @State private var alertTitle = ""
+    @State private var alertMessage = ""
+    @State private var showingAlert = false
+
+    var trimmedString: String {
+        string.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    var wordOrPhrase: String {
+        let stringArray = trimmedString.components(separatedBy: " ")
+        if stringArray.count > 1 {
+            return "phrase"
+        } else {
+            return "word"
+        }
+    }
+
+    var stringIsEmpty: Bool {
+        return trimmedString.isEmpty
+    }
+
+    var body: some View {
+        Form {
+            Section("Spelling Checker") {
+                TextField("Enter a word or phrase", text: $string)
+                Button("Check Spelling") {
+                    if checkSpelling(of: string) {
+                        alertTitle = "Correct"
+                        alertMessage = "'\(string)' is a correct \(wordOrPhrase)."
+                    } else {
+                        alertTitle = "Wrong"
+                        alertMessage = "'\(string)' is an incorrect \(wordOrPhrase)."
+
+                    }
+                    showingAlert = true
+                }.disabled(stringIsEmpty)
+            }
+        }
+        .alert(alertTitle, isPresented: $showingAlert) {
+            Button("Continue") { }
+        } message: {
+            Text(alertMessage)
+        }
+    }
+
+    func checkSpelling(of string: String) -> Bool {
+        let checker = UITextChecker()
+
+        // Ask Swift to create an Objective-C string range using the entire
+        // length of all our characters.
+        // UTF-16 is a character encoding which provides a nice bridging
+        // format or us to connect Swift and Objective-C.
+        let range = NSRange(location: 0, length: string.utf16.count)
+
+        let misspelledRange = checker.rangeOfMisspelledWord(in: string, range: range, startingAt: 0, wrap: false, language: "en")
+
+        // If the Objective-C range comes back as empty - i.e., if there was
+        // no spelling mistake because the string was spelled correctly -
+        // then we get back the special value NSNotFound.
+        return misspelledRange.location == NSNotFound
+    }
+}
+
 struct ListView: View {
     let people = ["Finn", "Leia", "Luke", "Rey"]
 
@@ -57,7 +122,7 @@ struct ListView: View {
     }
 }
 
-struct ContentView: View {
+struct List04ContentView: View {
     static let listStyleTexts = ["Automatic", "Grouped", "Inset", "Inset Grouped", "Plain", "Sidebar"]
     @State private var listStyleText = listStyleTexts[0]
 
