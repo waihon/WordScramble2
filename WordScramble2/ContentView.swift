@@ -26,7 +26,24 @@ struct ContentView: View {
                 }
             }
             .navigationTitle(rootWord)
+            // onSubmit() needs to be give a function that accepts no
+            // parameters and returns nothing.
+            .onSubmit(addNewWord)
         }
+    }
+
+    func addNewWord() {
+        // Lowercase and trim the word, to make sure we don't add duplicate
+        // words with case differences.
+        let answer = newWord.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+
+        // Exit if the remaining string is empty
+        guard answer.count > 0 else { return }
+
+        // Extra validation to come
+
+        usedWords.insert(answer, at: 0)
+        newWord = ""
     }
 }
 
