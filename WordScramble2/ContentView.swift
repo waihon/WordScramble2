@@ -13,7 +13,20 @@ struct ContentView: View {
     @State private var usedWords = [String]()
 
     var body: some View {
-        Text("Hello, world!")
+        NavigationView {
+            List {
+                Section {
+                    TextField("Enter your word", text: $newWord)
+                }
+
+                Section {
+                    ForEach(usedWords, id: \.self) { word in
+                        Text(word)
+                    }
+                }
+            }
+            .navigationTitle(rootWord)
+        }
     }
 }
 
