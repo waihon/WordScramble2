@@ -8,6 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var rootWord = ""
+    @State private var newWord = ""
+    @State private var usedWords = [String]()
+
+    var body: some View {
+        Text("Hello, world!")
+    }
+}
+
+struct List05ContentView: View {
     @State private var string = ""
     @State private var alertTitle = ""
     @State private var alertMessage = ""
