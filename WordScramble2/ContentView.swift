@@ -46,7 +46,9 @@ struct ContentView: View {
 
         // Extra validation to come
 
-        usedWords.insert(answer, at: 0)
+        withAnimation {
+            usedWords.insert(answer, at: 0)
+        }
         newWord = ""
     }
 }
