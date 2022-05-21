@@ -76,6 +76,23 @@ struct ContentView: View {
     func isOriginal(word: String) -> Bool {
         !usedWords.contains(word)
     }
+
+    func isPossible(word: String) -> Bool {
+        // Make a copy of the root word for manipulation later on
+        var tempRoot = rootWord
+
+        for letter in word {
+            if let pos = tempRoot.firstIndex(of: letter) {
+                // If a letter from user's input word is found then remove
+                // the letter from the copy so it can't be used twice.
+                tempRoot.remove(at: pos)
+            } else {
+                return false
+            }
+        }
+
+        return true
+    }
 }
 
 struct List05ContentView: View {
