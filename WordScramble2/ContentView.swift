@@ -64,6 +64,11 @@ struct ContentView: View {
             return
         }
 
+        guard isLongEnough(word: answer) else {
+            wordError(title: "Word not long enough", message: "Enter a word with three or more letters.")
+            return
+        }
+
         guard isPossible(word: answer) else {
             wordError(title: "Word not possible", message: "You can't spell that word from '\(rootWord)'.")
             return
@@ -133,6 +138,10 @@ struct ContentView: View {
         let misspelledRange = checker.rangeOfMisspelledWord(in: word, range: range, startingAt: 0, wrap: false, language: "en")
 
         return misspelledRange.location == NSNotFound
+    }
+
+    func isLongEnough(word: String) -> Bool {
+        return word.count > 2
     }
 
     func wordError(title: String, message: String) {
