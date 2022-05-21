@@ -18,9 +18,20 @@ struct ContentView: View {
 
     @FocusState private var isFocused: Bool
 
+    var score: Int {
+        var total = usedWords.count
+
+        for word in usedWords {
+            total += word.count
+        }
+
+        return total
+    }
+
     var body: some View {
         NavigationView {
             List {
+                Section("Score: \(score)") { }
                 Section {
                     TextField("Enter your word", text: $newWord)
                         .textInputAutocapitalization(.never)
