@@ -54,7 +54,10 @@ struct ContentView: View {
         // Exit if the remaining string is empty
         guard answer.count > 0 else { return }
 
-        // Extra validation to come
+        guard isPossible(word: answer) else {
+            wordError(title: "Word not possible", message: "You can't spell that word from '\(rootWord)'.")
+            return
+        }
 
         withAnimation {
             usedWords.insert(answer, at: 0)
