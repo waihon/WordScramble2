@@ -48,7 +48,7 @@ struct ContentView: View {
                 }
             }
             .navigationTitle(rootWord)
-            // onSubmit() needs to be give a function that accepts no
+            // onSubmit() needs to be given a function that accepts no
             // parameters and returns nothing.
             .onSubmit(addNewWord)
             .onAppear(perform: startGame)
@@ -106,7 +106,7 @@ struct ContentView: View {
     }
 
     func startGame() {
-        // 1. Find the URL for start.text in our app bundle
+        // 1. Find the URL for start.txt in our app bundle
         if let startWordsURL = Bundle.main.url(forResource: "start", withExtension: "txt") {
             // 2. Load start.txt into a string
             if let startWords = try? String(contentsOf: startWordsURL) {
