@@ -64,6 +64,11 @@ struct ContentView: View {
             return
         }
 
+        guard isReal(word: answer) else {
+            wordError(title: "Word not recognized", message: "You can't just make them up, you know!")
+            return
+        }
+
         withAnimation {
             usedWords.insert(answer, at: 0)
         }
