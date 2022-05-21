@@ -16,12 +16,15 @@ struct ContentView: View {
     @State private var errorMessage = ""
     @State private var showingError = false
 
+    @FocusState private var isFocused: Bool
+
     var body: some View {
         NavigationView {
             List {
                 Section {
                     TextField("Enter your word", text: $newWord)
                         .textInputAutocapitalization(.never)
+                        .focused($isFocused)
                 }
 
                 Section {
@@ -39,7 +42,9 @@ struct ContentView: View {
             .onSubmit(addNewWord)
             .onAppear(perform: startGame)
             .alert(errorTitle, isPresented: $showingError) {
-                Button("OK", role: .cancel) { }
+                Button("OK", role: .cancel) {
+                    isFocused = true
+                }
             } message: {
                 Text(errorMessage)
             }
@@ -73,6 +78,7 @@ struct ContentView: View {
             usedWords.insert(answer, at: 0)
         }
         newWord = ""
+        isFocused = true
     }
 
     func startGame() {
@@ -85,6 +91,11 @@ struct ContentView: View {
 
                 // 4. Pick one random word, or use "silkworm" as a sensible default
                 rootWord = allWords.randomElement() ?? "silkworm"
+
+                //                 https://stackoverflow.com/questions/68073919/swiftui-focusstate-how-to-give-it-initial-value
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    isFocused = true
+                }
 
                 // If we are here everything has worked, so we can exit
                 return
