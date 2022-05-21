@@ -59,6 +59,11 @@ struct ContentView: View {
         // Exit if the remaining string is empty
         guard answer.count > 0 else { return }
 
+        guard isNotRootWord(word: answer) else {
+            wordError(title: "Same as root word", message: "You can't use the root word '\(rootWord)'.")
+            return
+        }
+
         guard isOriginal(word: answer) else {
             wordError(title: "Word used already", message: "Be more original.")
             return
@@ -142,6 +147,10 @@ struct ContentView: View {
 
     func isLongEnough(word: String) -> Bool {
         return word.count > 2
+    }
+
+    func isNotRootWord(word: String) -> Bool {
+        return word != rootWord
     }
 
     func wordError(title: String, message: String) {
