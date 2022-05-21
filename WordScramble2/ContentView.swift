@@ -33,6 +33,7 @@ struct ContentView: View {
             // onSubmit() needs to be give a function that accepts no
             // parameters and returns nothing.
             .onSubmit(addNewWord)
+            .onAppear(perform: startGame)
         }
     }
 
