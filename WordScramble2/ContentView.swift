@@ -72,6 +72,10 @@ struct ContentView: View {
         // IF we are *here* then that was a problem - trigger a crash and report the error
         fatalError("Could not load start.ext from bundle.")
     }
+
+    func isOriginal(word: String) -> Bool {
+        !usedWords.contains(word)
+    }
 }
 
 struct List05ContentView: View {
